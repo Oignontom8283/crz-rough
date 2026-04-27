@@ -13,4 +13,7 @@ pub struct Args {
     /// Default position of the cursor 
     #[arg(short, long, default_value_t = 0)]
     pub index: u64,
+
+    #[arg(short, long, default_value_t = 10)]
+    lines: u32
 }
