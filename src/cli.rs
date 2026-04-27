@@ -14,6 +14,7 @@ pub struct Args {
     #[arg(short, long, default_value_t = 0)]
     pub index: usize,
 
+    /// Number of lines to display in the menu
     #[arg(short, long, default_value_t = 10)]
-    lines: u32
+    pub lines: u32
 }
