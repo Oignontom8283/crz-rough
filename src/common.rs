@@ -9,6 +9,9 @@ pub struct State {
     pub search_query: String,
     /// Only the indexes of items
     pub filtered_items: Vec<usize>,
+    /// Position of the cursor in the filtered list (not the original list!)
+    pub cursor_pos: usize,
+    pub comment: Option<String>,
 }
 
 impl State {
