@@ -15,5 +15,9 @@ fn main() {
         .filter_map(|line| line.ok())
         .collect::<Vec<String>>();
 
+    if items.is_empty() {
+        eprintln!("No input provided. Please provide input via stdin.");
+        return;
+    }
     
 }
