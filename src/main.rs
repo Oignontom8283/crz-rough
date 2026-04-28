@@ -36,8 +36,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
 
     drop(items); // Plus besoin de la list d'origine
+    
+    // Lance l'interface utilisateur dans le terminal
+    if let Some(selected) = run_tui(&mut state)? {
 
-    // ...
+        // Envoyer l'élément de retoure dans le stdout
+        println!("{}", selected);
+    }
     
     Ok(())
 }
