@@ -16,7 +16,7 @@ pub struct Args {
 
     /// Number of lines to display in the menu
     #[arg(short, long, default_value_t = 10)]
-    pub lines: u32,
+    pub lines: usize,
 
     /// Enable search functionality
     #[arg(short, long, default_value_t = true)]
