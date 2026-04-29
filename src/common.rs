@@ -1,5 +1,3 @@
-use std::borrow::Cow;
-
 
 pub const APP_NAME: &str = "CRZ Rough";
 
