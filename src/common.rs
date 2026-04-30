@@ -10,6 +10,19 @@ pub struct State {
     /// Position of the cursor in the filtered list (not the original list!)
     pub cursor_pos: usize,
     pub comment: Option<String>,
+    /// if search fonctionnality is enabled or not
+    pub search: bool,
+    pub scroll_offset: usize,
+    /// Cursor position within search_query (char index, not bytes)
+    pub search_cursor: usize,
+    /// Maximum number of list lines to display
+    pub max_lines: usize,
+    /// Actual visible lines reserved for the list
+    pub max_visible: usize,
+    /// Layout values computed once at init
+    pub comment_lines: usize,
+    pub search_lines: usize,
+    pub total_lines: usize,
 }
 
 impl State {

@@ -29,10 +29,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut state = State {
         items_key: items.clone(),
         item_values: None,
-        search_query: String::new(),
+        search_query: args.search_default.clone().unwrap_or_default(),
         filtered_items: (0..items.len()).collect(), // All items are displayed initially
         cursor_pos: args.index.min(items.len()).saturating_sub(1), // Index One-based to Zero-Based
         comment: args.comment.clone(),
+        search: !args.no_search,
+        scroll_offset: 0,
+        search_cursor: 0,
+        max_lines: args.lines.max(1),
+        max_visible: 0,
+        comment_lines: 0,
+        search_lines: 0,
+        total_lines: 0,
     };
 
     drop(items); // Plus besoin de la list d'origine
