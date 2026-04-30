@@ -19,10 +19,14 @@ pub struct Args {
     pub lines: usize,
 
     /// Enable search functionality
-    #[arg(short, long, default_value_t = true)]
-    pub search: bool,
+    #[arg(short, long, default_value_t = false)]
+    pub no_search: bool,
 
     /// Optional comment to display in the menu
     #[arg(short, long, default_value = "")]
     pub comment: Option<String>,
+
+    /// Default search term (if search is enabled)
+    #[arg(short, long)]
+    pub search_default: Option<String>,
 }

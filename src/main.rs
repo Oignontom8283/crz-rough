@@ -6,6 +6,10 @@ use crate::{common::State, tux::run_tui};
 mod cli;
 mod common;
 mod input;
+mod layout;
+mod render;
+mod search;
+mod scroll;
 mod tux;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
