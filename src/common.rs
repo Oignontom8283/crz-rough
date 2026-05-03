@@ -1,4 +1,3 @@
-
 pub const APP_NAME: &str = "CRZ Rough";
 
 pub struct State {
@@ -37,7 +36,6 @@ impl State {
     }
 }
 
-
 pub struct Item<'a> {
     pub index: usize,
     pub s: &'a State,
@@ -54,6 +52,48 @@ impl<'a> Item<'a> {
         match &self.s.item_values {
             Some(values) => &values[self.index],
             None => &self.s.items_key[self.index],
+        }
+    }
+}
+
+pub struct ListState {
+    pub cursor_pos: usize,
+    pub scroll_offset: usize,
+    pub items_key: Vec<String>,
+    pub item_values: Option<Vec<String>>,
+    pub search_query: String,
+    /// Only the indexes of items
+    pub filtered_items: Vec<usize>,
+    /// Actual visible lines reserved for the list
+    pub max_visible: usize,
+}
+
+impl ListState {
+    pub fn move_up(&mut self) {
+        if self.cursor_pos > 0 {
+            self.cursor_pos -= 1;
+            // La ligne 0 du viewport est un "..." si scroll_offset > 0.
+            if self.cursor_pos < self.scroll_offset {
+                self.scroll_offset = self.cursor_pos;
+            } else if self.scroll_offset > 0 && self.cursor_pos == self.scroll_offset {
+                // Evite de poser le curseur sur la ligne "...".
+                self.scroll_offset = self.scroll_offset.saturating_sub(1);
+            }
+        }
+    }
+
+    pub fn move_down(&mut self) {
+        let max_idx = self.filtered_items.len().saturating_sub(1);
+        if self.cursor_pos < max_idx {
+            self.cursor_pos += 1;
+            // La derniere ligne du viewport est un "..." si items depassent.
+            let would_be_last = self.cursor_pos == self.scroll_offset + self.max_visible - 1;
+            let more_below = self.scroll_offset + self.max_visible < self.filtered_items.len();
+            if self.cursor_pos >= self.scroll_offset + self.max_visible {
+                self.scroll_offset = self.cursor_pos + 1 - self.max_visible;
+            } else if would_be_last && more_below {
+                self.scroll_offset += 1;
+            }
         }
     }
 }
